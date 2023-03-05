@@ -1,5 +1,6 @@
-from cal import Cal
+import os
 import pytest
+from cal import Cal
 # def test_add_num_double():
 #     cal = Cal()
 #     assert cal.add_num_and_double(1, 1) == 4
@@ -11,6 +12,7 @@ class TestCal(object):
     def setup_class(cls):
         print('start')
         cls.cal = Cal()
+        cls.test_file_name = 'test.txt'
 
     @classmethod
     def teardown_class(cls):
@@ -33,24 +35,21 @@ class TestCal(object):
             print('dir')
         assert self.cal.add_num_and_double(1, 1) == 4
 
+
     @pytest.mark.skipif(is_release==True, reason='lesson')
     def test_add_num_and_double_raise(self):
         with pytest.raises(ValueError):
                 self.cal.add_num_and_double('1', '1')
 
-# release_name = 'lesson'
 
-# class CalTest(unittest.TestCase):
+    '''
+    fixture demo
+    '''
+    def test_add_num_double_ft(self, tmpdir):
+        print('tmpdir: ', tmpdir)
+        assert self.cal.add_num_and_double(1, 1) == 4
 
-#     @unittest.skipIf(release_name == 'lesson', 'skip!')
-#     def test_add_num_and_double(self):
-#         self.assertEqual(
-#             self.cal.add_num_and_double(1, 1),
-#             4
-#         )
-
-#     def test_add_num_and_double_raise(self):
-#         with self.assertRaises(ValueError):
-#             self.cal.add_num_and_double('1', '1')
-
-
+    def test_save(self, tmpdir):
+        self.cal.save(tmpdir, self.test_file_name)
+        test_file_path = os.path.join(tmpdir, self.test_file_name)
+        assert os.path.exists(test_file_path) is True       
