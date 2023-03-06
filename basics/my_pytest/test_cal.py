@@ -43,7 +43,7 @@ class TestCal(object):
 
 
     '''
-    fixture demo
+    fixture default
     '''
     def test_add_num_double_ft(self, tmpdir):
         print('tmpdir: ', tmpdir)
@@ -52,4 +52,11 @@ class TestCal(object):
     def test_save(self, tmpdir):
         self.cal.save(tmpdir, self.test_file_name)
         test_file_path = os.path.join(tmpdir, self.test_file_name)
-        assert os.path.exists(test_file_path) is True       
+        assert os.path.exists(test_file_path) is True
+        
+    '''
+    fixture custom
+    '''
+    def test_add_num_double_ft_cstm(self, csv_file):
+        print('tmpdir: ', csv_file)
+        assert self.cal.add_num_and_double(1, 1) == 4
