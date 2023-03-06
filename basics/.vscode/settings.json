@@ -1,6 +1,7 @@
 {
     "python.testing.pytestArgs": [
-        "my_pytest"
+        "my_pytest",
+        "my_mock"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true
