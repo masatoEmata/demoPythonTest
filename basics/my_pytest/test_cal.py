@@ -1,6 +1,6 @@
 import os
 import pytest
-from cal import Cal
+from .cal import Cal
 # def test_add_num_double():
 #     cal = Cal()
 #     assert cal.add_num_and_double(1, 1) == 4
@@ -13,11 +13,22 @@ class TestCal(object):
         print('start')
         cls.cal = Cal()
         cls.test_file_name = 'test.txt'
+        cls.test_dir = '/tmp/test_dir'
+
+    def test_save_no_dir(self):
+        self.cal.save(self.test_dir, self.test_file_name)
+        test_file_path = os.path.join(
+            self.test_dir, self.test_file_name
+        )
+        assert os.path.exists(test_file_path) is True
 
     @classmethod
     def teardown_class(cls):
         print('end')
-        cls.cal = Cal()
+        # cls.cal = Cal()
+        import shutil
+        if os.path.exists(cls.test_dir):
+            shutil.rmtree(cls.test_dir)
 
     def setup_method(self, method) -> None:
         print(f'setup method={method}\n')

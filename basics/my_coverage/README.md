@@ -1,0 +1,1 @@
+$ pytest my_pytest/test_cal.py my_pytest/cal.py --cov-report term-missing
